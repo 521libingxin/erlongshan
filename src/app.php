@@ -13,6 +13,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Slim\Views\PhpRenderer;
 use \LeanCloud\Client;
+use \LeanCloud\User;
 use \LeanCloud\Storage\CookieStorage;
 use \LeanCloud\Engine\SlimEngine;
 use \LeanCloud\Query;
@@ -28,7 +29,8 @@ Client::initialize(
     getenv("LC_APP_MASTER_KEY")
 );
 // 将 sessionToken 持久化到 cookie 中，以支持多实例共享会话
-Client::setStorage(new CookieStorage());
+//Client::setStorage(new CookieStorage());
+Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
 
 SlimEngine::enableHttpsRedirect();
 $app->add(new SlimEngine());
@@ -38,7 +40,11 @@ $container = $app->getContainer();
 $container["view"] = function($container) {
     return new \Slim\Views\PhpRenderer(__DIR__ . "/views/");
 };
-
+$app->get('/login', function (Request $request, Response $response) {
+    return $this->view->render($response, "login.phtml", array(
+        "currentTime" => new \DateTime(),
+    ));
+});
 $app->get('/', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
@@ -67,6 +73,17 @@ $app->post("/todos", function(Request $request, Response $response) {
     $todo->set("content", $data["content"]);
     $todo->save();
     return $response->withStatus(302)->withHeader("Location", "/todos");
+});
+$app->post("/login", function(Request $request, Response $response) {
+    $data = $request->getParsedBody();
+    try {
+        User::logIn($data["username"], $data["password"]);
+        // 跳转到个人资料页面
+        return $response->withStatus(302)->withRedirect('/todos');
+    } catch (Exception $ex) {
+        //登录失败，跳转到登录页面
+        return $response->withStatus(302)->withRedirect('/login');
+    }
 });
 
 $app->get('/hello/{name}', function (Request $request, Response $response) {
