@@ -49,15 +49,20 @@ $app->get('/index', function (Request $request, Response $response) {
     ));
 });
 
-$app->get('/login', function (Request $request, Response $response) {
-    return $this->view->render($response, "login.phtml", array(
-        "error" => "",
-    ));
-});
-$app->get('/login/error', function (Request $request, Response $response) {
-    return $this->view->render($response, "login.phtml", array(
-        "error" => "用户名或密码错误！",
-    ));
+$app->get('/login[/{params:.*}]', function (Request $request, Response $response) {
+	$user = User::getCurrentUser();
+	if ($user) {
+        return $response->withRedirect('/profile');
+    }else {
+    	$params = explode('/', $request->getAttribute('params'));
+    	$parval = "";
+    	if($params[0] == "error"){
+    		$parval = "用户名或密码错误！";
+    	}
+	    return $this->view->render($response, "login.phtml", array(
+	        "error" => $parval,
+	    ));
+    }
 });
 // 显示 todo 列表
 $app->get('/todos', function(Request $request, Response $response) {
@@ -104,9 +109,7 @@ $app->get('/profile', function(Request $request, Response $response) {
         // 如果已经登录，发送当前登录用户信息。
         //return $res->getBody()->write($user->getUsername());
         foreach($rolelist as $key => $value){
-	        return $this->view->render($response, $key.".phtml", array(
-		        "title" => "TODO 列表"
-		    ));
+	        return $response->withRedirect($key);
 		}
 		// 没有登录，跳转到登录页面。
         return $response->withRedirect('/login');
@@ -114,6 +117,22 @@ $app->get('/profile', function(Request $request, Response $response) {
         // 没有登录，跳转到登录页面。
         return $response->withRedirect('/login');
     }
+});
+$app->get('/bgmanagement', function (Request $request, Response $response) {
+	$roleid = $user->get("role");
+	$query = new Query("Rolelist");
+	$rolelist = $query->get($roleid)->get("roleobject");
+    return $this->view->render($response, "bgmanagement.phtml", array(
+        "rolelist" => $rolelist['bgmanagement']
+    ));
+});
+$app->get('/management', function (Request $request, Response $response) {
+	$roleid = $user->get("role");
+	$query = new Query("Rolelist");
+	$rolelist = $query->get($roleid)->get("roleobject");
+    return $this->view->render($response, "management.phtml", array(
+        "rolelist" => $rolelist['management']
+    ));
 });
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
