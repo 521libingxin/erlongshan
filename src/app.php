@@ -101,11 +101,10 @@ $app->post("/login", function(Request $request, Response $response) {
 $app->get('/profile', function(Request $request, Response $response) {
     // 判断用户是否已经登录
     $user = User::getCurrentUser();
-    
-	$roleid = $user->get("role");
-	$query = new Query("Rolelist");
-	$rolelist = $query->get($roleid)->get("roleobject");
     if ($user) {
+		$roleid = $user->get("role");
+		$query = new Query("Rolelist");
+		$rolelist = $query->get($roleid)->get("roleobject");
         // 如果已经登录，发送当前登录用户信息。
         //return $res->getBody()->write($user->getUsername());
         foreach($rolelist as $key => $value){
@@ -118,23 +117,40 @@ $app->get('/profile', function(Request $request, Response $response) {
         return $response->withRedirect('/login');
     }
 });
+$app->get('/getajax', function(Request $request, Response $response) {
+    // PSR-7 response is immutable
+    $res = $response->withHeader("Content-Type", "application/json");
+    $res->getBody()->write(json_encode(array(
+        "runtime" => "php-5.5",
+        "version" => "custom"
+    )));
+    return $res;
+});
 $app->get('/bgmanagement', function (Request $request, Response $response) {
     $user = User::getCurrentUser();
-	$roleid = $user->get("role");
-	$query = new Query("Rolelist");
-	$rolelist = $query->get($roleid)->get("roleobject");
-    return $this->view->render($response, "bgmanagement.phtml", array(
-        "rolelist" => $rolelist['bgmanagement'],
-    ));
+    if ($user) {
+		$roleid = $user->get("role");
+		$query = new Query("Rolelist");
+		$rolelist = $query->get($roleid)->get("roleobject");
+	    return $this->view->render($response, "bgmanagement.phtml", array(
+	        "rolelist" => $rolelist['bgmanagement'],
+	    ));
+    }else{
+    	return $response->withRedirect('/login');
+    }
 });
 $app->get('/management', function (Request $request, Response $response) {
     $user = User::getCurrentUser();
-	$roleid = $user->get("role");
-	$query = new Query("Rolelist");
-	$rolelist = $query->get($roleid)->get("roleobject");
-    return $this->view->render($response, "management.phtml", array(
-        "rolelist" => $rolelist['management'],
-    ));
+    if ($user) {
+		$roleid = $user->get("role");
+		$query = new Query("Rolelist");
+		$rolelist = $query->get($roleid)->get("roleobject");
+	    return $this->view->render($response, "management.phtml", array(
+	        "rolelist" => $rolelist['management'],
+	    ));
+    }else{
+    	return $response->withRedirect('/login');
+    }
 });
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
