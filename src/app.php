@@ -119,19 +119,21 @@ $app->get('/profile', function(Request $request, Response $response) {
     }
 });
 $app->get('/bgmanagement', function (Request $request, Response $response) {
+    $user = User::getCurrentUser();
 	$roleid = $user->get("role");
 	$query = new Query("Rolelist");
 	$rolelist = $query->get($roleid)->get("roleobject");
     return $this->view->render($response, "bgmanagement.phtml", array(
-        "rolelist" => $rolelist['bgmanagement']
+        "rolelist" => $rolelist['bgmanagement'],
     ));
 });
 $app->get('/management', function (Request $request, Response $response) {
+    $user = User::getCurrentUser();
 	$roleid = $user->get("role");
 	$query = new Query("Rolelist");
 	$rolelist = $query->get($roleid)->get("roleobject");
     return $this->view->render($response, "management.phtml", array(
-        "rolelist" => $rolelist['management']
+        "rolelist" => $rolelist['management'],
     ));
 });
 $app->get('/hello/{name}', function (Request $request, Response $response) {
