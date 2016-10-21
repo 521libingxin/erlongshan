@@ -40,17 +40,22 @@ $container = $app->getContainer();
 $container["view"] = function($container) {
     return new \Slim\Views\PhpRenderer(__DIR__ . "/views/");
 };
-$app->get('/login', function (Request $request, Response $response) {
-    return $this->view->render($response, "login.phtml", array(
-        "currentTime" => new \DateTime(),
-    ));
-});
 $app->get('/', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
     ));
 });
 
+$app->get('/login', function (Request $request, Response $response) {
+    return $this->view->render($response, "login.phtml", array(
+        "error" => "",
+    ));
+});
+$app->get('/login/error', function (Request $request, Response $response) {
+    return $this->view->render($response, "login.phtml", array(
+        "error" => "用户名或密码错误！",
+    ));
+});
 // 显示 todo 列表
 $app->get('/todos', function(Request $request, Response $response) {
     $query = new Query("Todo");
@@ -77,15 +82,25 @@ $app->post("/todos", function(Request $request, Response $response) {
 $app->post("/login", function(Request $request, Response $response) {
     $data = $request->getParsedBody();
     try {
-        User::logIn($data["username"], $data["password"]);
+        User::logIn($data["uname"], $data["pwd"]);
         // 跳转到个人资料页面
-        return $response->withStatus(302)->withRedirect('/todos');
+        return $response->withStatus(302)->withRedirect('/profile');
     } catch (Exception $ex) {
         //登录失败，跳转到登录页面
-        return $response->withStatus(302)->withRedirect('/login');
+        return $response->withStatus(302)->withRedirect('/login/error');
     }
 });
-
+$app->get('/profile', function($req, $res) {
+    // 判断用户是否已经登录
+    $user = User::getCurrentUser();
+    if ($user) {
+        // 如果已经登录，发送当前登录用户信息。
+        return $res->getBody()->write($user->getUsername());
+    } else {
+        // 没有登录，跳转到登录页面。
+        return $res->withRedirect('/login');
+    }
+});
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
     $response->getBody()->write("Hello, $name");
