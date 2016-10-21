@@ -41,6 +41,9 @@ $container["view"] = function($container) {
     return new \Slim\Views\PhpRenderer(__DIR__ . "/views/");
 };
 $app->get('/', function (Request $request, Response $response) {
+    return $response->withStatus(302)->withRedirect('/profile');
+});
+$app->get('/index', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
     ));
@@ -90,15 +93,26 @@ $app->post("/login", function(Request $request, Response $response) {
         return $response->withStatus(302)->withRedirect('/login/error');
     }
 });
-$app->get('/profile', function($req, $res) {
+$app->get('/profile', function(Request $request, Response $response) {
     // 判断用户是否已经登录
     $user = User::getCurrentUser();
+    
+	$roleid = $user->get("role");
+	$query = new Query("Rolelist");
+	$rolelist = $query->get($roleid)->get("roleobject");
     if ($user) {
         // 如果已经登录，发送当前登录用户信息。
-        return $res->getBody()->write($user->getUsername());
+        //return $res->getBody()->write($user->getUsername());
+        foreach($rolelist as $key => $value){
+	        return $this->view->render($response, $key.".phtml", array(
+		        "title" => "TODO 列表"
+		    ));
+		}
+		// 没有登录，跳转到登录页面。
+        return $response->withRedirect('/login');
     } else {
         // 没有登录，跳转到登录页面。
-        return $res->withRedirect('/login');
+        return $response->withRedirect('/login');
     }
 });
 $app->get('/hello/{name}', function (Request $request, Response $response) {
