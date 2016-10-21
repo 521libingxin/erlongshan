@@ -119,7 +119,9 @@ $app->get('/profile', function(Request $request, Response $response) {
 });
 $app->get('/getajax', function(Request $request, Response $response) {
     // PSR-7 response is immutable
-    $res = $response->withHeader("Content-Type", "application/json");
+    //header("Access-Control-Allow-Origin:*");
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $response->withHeader("Content-Type","application/json");
     $res->getBody()->write(json_encode(array(
         "runtime" => "php-5.5",
         "version" => "custom"
