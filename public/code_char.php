@@ -37,7 +37,7 @@ function getCode($num,$w,$h) {
 		$strx += rand(8, 14);
 	}
 	imagepng($im);
-	imagedestroy($im);
+	//imagedestroy($im);
 }
 ?>
 
