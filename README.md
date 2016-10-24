@@ -1,21 +1,24 @@
-# Slim Getting Started
+# Node.js Getting started
 
-一个基于 [Slim 框架](http://slimframework.com/) 的 PHP 应用,可以
-运行在 LeanEngine PHP 运行时环境。
+一个简单的使用 Express 4 的 Node.js 应用。
+可以运行在 LeanEngine Node.js 运行时环境。
+
+## 一键部署
+[![Deploy to LeanEngine](http://ac-32vx10b9.clouddn.com/109bd02ee9f5875a.png)](https://leancloud.cn/1.1/functions/_ops/deploy-button)
 
 ## 本地运行
 
-首先确认本机已经安装 PHP 和 [composer](https://getcomposer.org/) 以及 [LeanCloud 命令行工具](https://www.leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
+首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://www.leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
 
 ```
-$ git clone git@github.com:leancloud/slim-getting-started.git
-$ cd slim-getting-started
+$ git clone git@github.com:leancloud/node-js-getting-started.git
+$ cd node-js-getting-started
 ```
 
 安装依赖：
 
 ```
-composer install
+npm install
 ```
 
 关联应用：
@@ -34,8 +37,6 @@ lean up
 
 应用即可启动运行：[localhost:3000](http://localhost:3000)
 
-同时开启的还有云函数的本地调试工具：[localhost:3001](http://localhost:3001)
-
 ## 部署到 LeanEngine
 
 部署到预备环境（若无预备环境则直接部署到生产环境）：
@@ -50,8 +51,8 @@ lean publish
 
 ## 相关文档
 
-* [PHP 网站托管开发指南](https://leancloud.cn/docs/leanengine_webhosting_guide-php.html)
-* [PHP 云函数开发指南](https://leancloud.cn/docs/leanengine_cloudfunction_guide-php.html)
-* [PHP 数据存储开发指南](https://leancloud.cn/docs/leanstorage_guide-php.html)
-* [PHP SDK API 文档](https://leancloud.cn/api-docs/php/)
-
+* [LeanEngine 指南](https://leancloud.cn/docs/leanengine_guide-node.html)
+* [JavaScript 指南](https://leancloud.cn/docs/js_guide.html)
+* [JavaScript SDK API](https://leancloud.cn/api-docs/javascript/index.html)
+* [命令行工具详解](https://leancloud.cn/docs/cloud_code_commandline.html)
+* [LeanEngine FAQ](https://leancloud.cn/docs/cloud_code_faq.html)
