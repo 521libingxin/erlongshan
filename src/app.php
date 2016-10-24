@@ -132,21 +132,21 @@ $app->post('/loginajax', function(Request $request, Response $response) {
     $res = $response->withHeader("Access-Control-Allow-Origin","*");
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
-	User::logIn($data["uname"], $data["pwd"]);
-	if($data["long"] == 1){
-		Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
-	}
-	if ($user) {
+	try {
+        User::logIn($data["uname"], $data["pwd"]);
+        if($data["long"] == 1){
+			Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
+		}
 		$res->getBody()->write(json_encode(array(
 	        "login" => "1"
 	    )));
 		return $res;
-	}else{
+    } catch (Exception $ex) {
 		$res->getBody()->write(json_encode(array(
 	        "login" => "0"
 	    )));
 		return $res;
-	}
+    }
 });
 $app->get('/bgmanagement', function (Request $request, Response $response) {
     $user = User::getCurrentUser();
