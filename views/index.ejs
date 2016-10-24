@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>LeanCache Node.js Demos</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+  </head>
+  <body>
+    <h1>LeanCache 示例</h1>
+    <% if (!isInitUsers) { %>
+    <form action="/initUsers" method="POST">
+      <p>初始化 10 个用户供测试使用</p>
+      <input type="submit" value="初始化测试用户" />
+    </form>
+    <% } %>
+    <p><a href="/moneyPackage">抢红包</a></p>
+  </body>
+</html>
