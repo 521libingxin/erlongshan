@@ -29,8 +29,8 @@ Client::initialize(
     getenv("LC_APP_MASTER_KEY")
 );
 // 将 sessionToken 持久化到 cookie 中，以支持多实例共享会话
-//Client::setStorage(new CookieStorage());
-Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
+Client::setStorage(new CookieStorage());
+//Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
 
 SlimEngine::enableHttpsRedirect();
 $app->add(new SlimEngine());
@@ -127,6 +127,26 @@ $app->get('/getajax', function(Request $request, Response $response) {
         "version" => "custom"
     )));
     return $res;
+});
+$app->get('/loginajax', function(Request $request, Response $response) {
+	$data = $request->getParsedBody();
+	User::logIn($data["uname"], $data["pwd"]);
+	if($data["long"] == 1){
+		Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
+	}
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+	if ($user) {
+		$res->getBody()->write(json_encode(array(
+	        "login" => "1"
+	    )));
+		return $res;
+	}else{
+		$res->getBody()->write(json_encode(array(
+	        "login" => "0"
+	    )));
+		return $res;
+	}
 });
 $app->get('/bgmanagement', function (Request $request, Response $response) {
     $user = User::getCurrentUser();
