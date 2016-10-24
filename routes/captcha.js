@@ -1,5 +1,7 @@
-var Captchapng = require('captchapng');
+'use strict';
+var router = require('express').Router();
 var AV = require('leanengine');
+var Captchapng = require('captchapng');
 
 var router = require('express').Router();
 var redisClient = require('../redis').redisClient;
