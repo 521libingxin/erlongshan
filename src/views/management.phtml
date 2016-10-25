@@ -3,8 +3,31 @@
   <head>
     <title>LeanEngine</title>
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <script type="text/javascript" src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
   </head>
   <body>
   	<div>management</div>
+  	<button onclick="abc()">abc</button>
+  	<button onclick="bcd()">bcd</button>
+  	<script>
+  	function abc(){
+			$.ajax({
+				type:"post",
+				url:"https://erlongshan.leanapp.cn/register",
+				data:{sessT:"woxb1ovxamub0cqua2jvv61dw"},
+				success:function(dateback){
+				}
+			});
+  	}
+  	function bcd(){
+			$.ajax({
+				type:"get",
+				url:"https://erlongshan.leanapp.cn/register2",
+				data:{sessT:"woxb1ovxamub0cqua2jvv61dw"},
+				success:function(dateback){
+				}
+			});
+  	}
+  	</script>
   </body>
 </html>

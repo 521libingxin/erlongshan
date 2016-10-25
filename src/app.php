@@ -194,6 +194,27 @@ $app->post('/register', function(Request $request, Response $response) {
 		return $res;
     }
 });
+$app->get('/register2', function(Request $request, Response $response) {
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+	$data = $request->getParsedBody();
+	//User::become('woxb1ovxamub0cqua2jvv61dw');
+	$currentUser = User::getCurrentUser();
+	$objid = $currentUser -> getObjectId();
+	$currentUser->set("sex","男");
+	try {
+		$currentUser->save();
+		$res->getBody()->write(json_encode(array(
+	        "login" => "1"
+	    )));
+		return $res;
+    } catch (Exception $ex) {
+		$res->getBody()->write(json_encode(array(
+	        "login" => $objid
+	    )));
+		return $res;
+    }
+});
 $app->get('/bgmanagement', function (Request $request, Response $response) {
     $user = User::getCurrentUser();
     if ($user) {
