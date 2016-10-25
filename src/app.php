@@ -134,24 +134,20 @@ $app->post('/loginajax', function(Request $request, Response $response) {
 	$data = $request->getParsedBody();
 	$uname = $data["uname"];
 	$pwd = $data["pwd"];
-	$match = preg_match('/^1[34578]\d{9}$/', $uname);
+	$currentUser = "";
 	try {
-		if ($match) {
-       		User::logInWithMobilePhoneNumber($uname, $pwd);
+		if (preg_match('/^1[34578]\d{9}$/', $uname)) {
+       		$currentUser = User::logInWithMobilePhoneNumber($uname, $pwd);
 		} else {  
-        	User::logIn($uname, $pwd);
+        	$currentUser = User::logIn($uname, $pwd);
 		} 
 		$res->getBody()->write(json_encode(array(
-	        "uname" => $uname,
-	        "pwd" => $pwd,
-	        "match" => $match
+	        "login" => $currentUser->getSessionToken()
 	    )));
 		return $res;
     } catch (Exception $ex) {
 		$res->getBody()->write(json_encode(array(
-	        "uname" => $uname,
-	        "pwd" => $pwd,
-	        "match" => $match
+	        "login" => "0"
 	    )));
 		return $res;
     }
@@ -166,6 +162,26 @@ $app->post('/singinajax', function(Request $request, Response $response) {
 	$user->setEmail($data["email"]);
 	try {
 		$user->signUp();
+		$res->getBody()->write(json_encode(array(
+	        "login" => $user->getParsedBody();
+	    )));
+		return $res;
+    } catch (Exception $ex) {
+		$res->getBody()->write(json_encode(array(
+	        "login" => "0"
+	    )));
+		return $res;
+    }
+});
+$app->post('/register', function(Request $request, Response $response) {
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+	$data = $request->getParsedBody();
+	$currentUser = User::become($data["sessT"]);
+	$todo = Object::create("_User", $currentUser -> getObjectId());
+	$todo->set("sex","男");
+	try {
+		$todo->save();
 		$res->getBody()->write(json_encode(array(
 	        "login" => "1"
 	    )));
