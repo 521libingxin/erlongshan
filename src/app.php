@@ -134,9 +134,6 @@ $app->post('/loginajax', function(Request $request, Response $response) {
 	$data = $request->getParsedBody();
 	try {
         User::logIn($data["uname"], $data["pwd"]);
-        if($data["long"] == 1){
-			Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
-		}
 		$res->getBody()->write(json_encode(array(
 	        "login" => "1"
 	    )));
@@ -144,6 +141,26 @@ $app->post('/loginajax', function(Request $request, Response $response) {
     } catch (Exception $ex) {
 		$res->getBody()->write(json_encode(array(
 	        "login" => "0"
+	    )));
+		return $res;
+    }
+});
+$app->post('/singinajax', function(Request $request, Response $response) {
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+	$data = $request->getParsedBody();
+	$user = new User();              // 新建 User 对象实例
+	$user->setPassword($data["pwd"]);     // 设置密码
+	$user->setEmail($data["email"]); // 设置邮箱
+	try {
+		$user->signUp();
+		$res->getBody()->write(json_encode(array(
+	        "login" => "1"
+	    )));
+		return $res;
+    } catch (Exception $ex) {
+		$res->getBody()->write(json_encode(array(
+	        "login" => $ex
 	    )));
 		return $res;
     }
