@@ -134,19 +134,24 @@ $app->post('/loginajax', function(Request $request, Response $response) {
 	$data = $request->getParsedBody();
 	$uname = $data["uname"];
 	$pwd = $data["pwd"];
+	$match = preg_match('/^1[34578]\d{9}$/', $uname);
 	try {
-		if (preg_match('/^1[34578]\d{9}$/', $uname)) {
+		if ($match) {
        		User::logInWithMobilePhoneNumber($uname, $pwd);
 		} else {  
         	User::logIn($uname, $pwd);
 		} 
 		$res->getBody()->write(json_encode(array(
-	        "login" => "1"
+	        "uname" => $uname,
+	        "pwd" => $pwd,
+	        "match" => $match
 	    )));
 		return $res;
     } catch (Exception $ex) {
 		$res->getBody()->write(json_encode(array(
-	        "login" => "0"
+	        "uname" => $uname,
+	        "pwd" => $pwd,
+	        "match" => $match
 	    )));
 		return $res;
     }
