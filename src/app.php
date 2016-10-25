@@ -178,17 +178,17 @@ $app->post('/register', function(Request $request, Response $response) {
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
 	$currentUser = User::become($data["sessT"]);
-	$todo = Object::create("_User", $currentUser -> getObjectId());
-	$todo->set("sex","男");
+	$objid = $currentUser -> getObjectId();
+	$currentUser->set("sex","男");
 	try {
-		$todo->save();
+		$currentUser->save();
 		$res->getBody()->write(json_encode(array(
 	        "login" => "1"
 	    )));
 		return $res;
     } catch (Exception $ex) {
 		$res->getBody()->write(json_encode(array(
-	        "login" => "0"
+	        "login" => $objid
 	    )));
 		return $res;
     }
