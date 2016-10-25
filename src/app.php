@@ -149,9 +149,10 @@ $app->post('/singinajax', function(Request $request, Response $response) {
     $res = $response->withHeader("Access-Control-Allow-Origin","*");
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
-	$user = new User();              // 新建 User 对象实例
-	$user->setPassword($data["pwd"]);     // 设置密码
-	$user->setEmail($data["email"]); // 设置邮箱
+	$user = new User();
+	$user->setUsername($data["email"]); 
+	$user->setPassword($data["pwd"]);
+	$user->setEmail($data["email"]);
 	try {
 		$user->signUp();
 		$res->getBody()->write(json_encode(array(
@@ -160,7 +161,7 @@ $app->post('/singinajax', function(Request $request, Response $response) {
 		return $res;
     } catch (Exception $ex) {
 		$res->getBody()->write(json_encode(array(
-	        "login" => $ex
+	        "login" => "0"
 	    )));
 		return $res;
     }
