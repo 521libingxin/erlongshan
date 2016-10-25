@@ -132,8 +132,14 @@ $app->post('/loginajax', function(Request $request, Response $response) {
     $res = $response->withHeader("Access-Control-Allow-Origin","*");
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
+	$uname = $data["uname"];
+	$pwd = $data["pwd"];
 	try {
-        User::logIn($data["uname"], $data["pwd"]);
+		if (preg_match('/^1[34578]\d{9}$/', $uname)) {
+       		User::logInWithMobilePhoneNumber($uname, $pwd);
+		} else {  
+        	User::logIn($uname, $pwd);
+		} 
 		$res->getBody()->write(json_encode(array(
 	        "login" => "1"
 	    )));
