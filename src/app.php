@@ -177,7 +177,7 @@ $app->post('/register', function(Request $request, Response $response) {
     $res = $response->withHeader("Access-Control-Allow-Origin","*");
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
-	User::become($data["sessT"]);
+	User::become('woxb1ovxamub0cqua2jvv61dw');
 	$currentUser = User::getCurrentUser();
 	$objid = $currentUser -> getObjectId();
 	$currentUser->set("sex","男");
