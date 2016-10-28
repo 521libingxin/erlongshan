@@ -28,7 +28,6 @@ Client::initialize(
     getenv("LC_APP_KEY"),
     getenv("LC_APP_MASTER_KEY")
 );
-Client::useMasterKey(true);
 // 将 sessionToken 持久化到 cookie 中，以支持多实例共享会话
 Client::setStorage(new CookieStorage());
 //Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
@@ -133,18 +132,86 @@ $app->post('/loginajax', function(Request $request, Response $response) {
     $res = $response->withHeader("Access-Control-Allow-Origin","*");
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
+	$uname = $data["uname"];
+	$pwd = $data["pwd"];
+	$currentUser = "";
 	try {
-        User::logIn($data["uname"], $data["pwd"]);
-        if($data["long"] == 1){
-			Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
-		}
+		if (preg_match('/^1[34578]\d{9}$/', $uname)) {
+       		$currentUser = User::logInWithMobilePhoneNumber($uname, $pwd);
+		} else {  
+        	$currentUser = User::logIn($uname, $pwd);
+		} 
+		$res->getBody()->write(json_encode(array(
+	        "login" => $currentUser->getSessionToken()
+	    )));
+		return $res;
+    } catch (Exception $ex) {
+		$res->getBody()->write(json_encode(array(
+	        "login" => "0"
+	    )));
+		return $res;
+    }
+});
+$app->post('/singinajax', function(Request $request, Response $response) {
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+	$data = $request->getParsedBody();
+	$user = new User();
+	$user->setUsername($data["email"]); 
+	$user->setPassword($data["pwd"]);
+	$user->setEmail($data["email"]);
+	try {
+		$user->signUp();
+		$res->getBody()->write(json_encode(array(
+	        "login" => $user->getParsedBody()
+	    )));
+		return $res;
+    } catch (Exception $ex) {
+		$res->getBody()->write(json_encode(array(
+	        "login" => "0"
+	    )));
+		return $res;
+    }
+});
+$app->post('/register', function(Request $request, Response $response) {
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+	$data = $request->getParsedBody();
+	User::become('woxb1ovxamub0cqua2jvv61dw');
+	$currentUser = User::getCurrentUser();
+	$objid = $currentUser -> getObjectId();
+	$currentUser->set("sex","男");
+	try {
+		$currentUser->save();
 		$res->getBody()->write(json_encode(array(
 	        "login" => "1"
 	    )));
 		return $res;
     } catch (Exception $ex) {
 		$res->getBody()->write(json_encode(array(
-	        "login" => "0"
+	        "login" => $objid
+	    )));
+		return $res;
+    }
+});
+$app->get('/register2', function(Request $request, Response $response) {
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+	$data = $request->getParsedBody();
+	//User::become('woxb1ovxamub0cqua2jvv61dw');
+	User::become('woxb1ovxamub0cqua2jvv61dw');
+	$currentUser = User::getCurrentUser();
+	$objid = $currentUser -> getObjectId();
+	$currentUser->set("sex","男");
+	try {
+		$currentUser->save();
+		$res->getBody()->write(json_encode(array(
+	        "login" => "1"
+	    )));
+		return $res;
+    } catch (Exception $ex) {
+		$res->getBody()->write(json_encode(array(
+	        "login" => $objid
 	    )));
 		return $res;
     }
