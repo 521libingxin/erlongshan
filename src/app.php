@@ -28,6 +28,7 @@ Client::initialize(
     getenv("LC_APP_KEY"),
     getenv("LC_APP_MASTER_KEY")
 );
+Client::useMasterKey(true);
 // 将 sessionToken 持久化到 cookie 中，以支持多实例共享会话
 Client::setStorage(new CookieStorage());
 //Client::setStorage(new CookieStorage(60 * 60 * 24, "/"));
