@@ -178,12 +178,10 @@ $app->post('/register', function(Request $request, Response $response) {
     $res = $response->withHeader("Access-Control-Allow-Origin","*");
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
-	User::become('woxb1ovxamub0cqua2jvv61dw');
-	$currentUser = User::getCurrentUser();
-	$objid = $currentUser -> getObjectId();
-	$currentUser->set("sex","男");
+	//$user->setUsername($data["email"]); 
+	$currentUser = User::become($data["sessT"]);
 	try {
-		$currentUser->save();
+		$currentUser -> updatePassword($data["oldpwd"],$data["newpwd"]);
 		$res->getBody()->write(json_encode(array(
 	        "login" => "1"
 	    )));
