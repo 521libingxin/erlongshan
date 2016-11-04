@@ -50,7 +50,7 @@ Cloud::afterSave("_User", function($userObj, $currentUser) {
 Cloud::onLogin(function($user) {
 	//$todo = new Object("Todo");
     $user ->set("sex","女的");
-    $currentUser->save();
+    $user->save();
     //error_log($todo);
     /*if ($user->get("blocked")) {
         // 用户无法登录
