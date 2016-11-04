@@ -1,6 +1,8 @@
 <?php
 
 use \LeanCloud\Engine\Cloud;
+use \LeanCloud\Query;
+use \LeanCloud\Object;
 
 /*
  * Define cloud functions and hooks on LeanCloud
@@ -40,22 +42,8 @@ Cloud::define("sieveOfPrimes", function($params, $user) {
     return $numbers;
 });
 Cloud::onLogin(function($user) {
-    $ip=false; 
-	if(!empty($_SERVER['HTTP_CLIENT_IP'])){ 
-		$ip=$_SERVER['HTTP_CLIENT_IP']; 
-	}
-	if(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){ 
-		$ips=explode (', ', $_SERVER['HTTP_X_FORWARDED_FOR']); 
-		if($ip){ array_unshift($ips, $ip); $ip=FALSE; }
-		for ($i=0; $i < count($ips); $i++){
-			if(!eregi ('^(10│172.16│192.168).', $ips[$i])){
-				$ip=$ips[$i];
-				break;
-			}
-		}
-	}
     $todo = new Object("Todo");
-    $todo->set("content", $ip);
+    $todo->set("content", 132);
     $todo->save();
 });
 /*
