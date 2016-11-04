@@ -10,7 +10,11 @@ use \LeanCloud\Engine\Cloud;
 Cloud::define("sayHello", function($params, $user) {
     return "hello {$params['name']}";
 });
-
+Cloud::define("averageStars", function($params, $user) {
+    error_log("123123"+$params);
+    error_log("123123");
+    return 0;
+});
 // /1.1/functions/sieveOfPrimes
 Cloud::define("sieveOfPrimes", function($params, $user) {
     $n = isset($params["n"]) ? $params["n"] : 1000;
@@ -40,6 +44,7 @@ Cloud::define("sieveOfPrimes", function($params, $user) {
     return $numbers;
 });
 Cloud::afterSave("_User", function($userObj, $currentUser) {
+	error_log('testBookingafterSave');
     $userObj->set("sex", "LeanCloud");
     try {
         $userObj->save();
@@ -48,9 +53,10 @@ Cloud::afterSave("_User", function($userObj, $currentUser) {
     }
 });
 Cloud::onLogin(function($user) {
+	error_log('onloginuser');
 	//$todo = new Object("Todo");
-    $user ->set("sex","女的");
-    $user->save();
+    /*$user ->set("sex","女的");
+    $user->save();*/
     //error_log($todo);
     /*if ($user->get("blocked")) {
         // 用户无法登录

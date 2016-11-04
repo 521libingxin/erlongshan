@@ -136,6 +136,7 @@ $app->post('/loginajax', function(Request $request, Response $response) {
 	$uname = $data["uname"];
 	$pwd = $data["pwd"];
 	$currentUser = "";
+	$result = Cloud::run("averageStars", "abc");
 	try {
 		if (preg_match('/^1[34578]\d{9}$/', $uname)) {
        		$currentUser = User::logInWithMobilePhoneNumber($uname, $pwd);
@@ -143,7 +144,8 @@ $app->post('/loginajax', function(Request $request, Response $response) {
         	$currentUser = User::logIn($uname, $pwd);
 		} 
 		$res->getBody()->write(json_encode(array(
-	        "login" => $currentUser->getSessionToken()
+	        "login" => $currentUser->getSessionToken(),
+	        "cloud" => $result;
 	    )));
 		return $res;
     } catch (Exception $ex) {
