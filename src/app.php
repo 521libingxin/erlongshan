@@ -145,7 +145,7 @@ $app->post('/loginajax', function(Request $request, Response $response) {
 		} 
 		$res->getBody()->write(json_encode(array(
 	        "login" => $currentUser->getSessionToken(),
-	        "cloud" => $result;
+	        "cloud" => $result
 	    )));
 		return $res;
     } catch (Exception $ex) {
