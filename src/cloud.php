@@ -40,7 +40,7 @@ Cloud::define("sieveOfPrimes", function($params, $user) {
     return $numbers;
 });
 Cloud::afterSave("_User", function($userObj, $currentUser) {
-    $userObj->set("from", "LeanCloud");
+    $userObj->set("sex", "LeanCloud");
     try {
         $userObj->save();
     } catch (CloudException $ex) {
