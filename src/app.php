@@ -18,6 +18,7 @@ use \LeanCloud\Storage\CookieStorage;
 use \LeanCloud\Engine\SlimEngine;
 use \LeanCloud\Query;
 use \LeanCloud\Object;
+use \LeanCloud\Engine\Cloud;
 
 $app = new \Slim\App();
 // 禁用 Slim 默认的 handler，使得错误栈被日志捕捉
