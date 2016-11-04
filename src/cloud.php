@@ -18,12 +18,10 @@ Cloud::define("averageStars", function($params, $user) {
 Cloud::afterUpdate("_User", function($article, $user) {
     // 输出日志到控制台
     error_log("afterUpdate_dfsdfs15153412sf");
-    return 0;
 });
 Cloud::beforeUpdate("_User", function($article, $user) {
     // 输出日志到控制台
     error_log("beforeUpdate_dfsdfs15153412sf");
-    return 0;
 });
 // /1.1/functions/sieveOfPrimes
 Cloud::define("sieveOfPrimes", function($params, $user) {
@@ -53,7 +51,7 @@ Cloud::define("sieveOfPrimes", function($params, $user) {
     }
     return $numbers;
 });
-Cloud::afterSave("_User", function($userObj, $currentUser) {
+/*Cloud::afterSave("_User", function($userObj, $currentUser) {
 	error_log('testBookingafterSave');
     $userObj->set("sex", "LeanCloud");
     try {
@@ -61,7 +59,7 @@ Cloud::afterSave("_User", function($userObj, $currentUser) {
     } catch (CloudException $ex) {
         throw new FunctionError("保存 User 对象失败: " . $ex->getMessage());
     }
-});
+});*/
 Cloud::onLogin(function($user) {
 	error_log('onloginuser');
 	//$todo = new Object("Todo");
