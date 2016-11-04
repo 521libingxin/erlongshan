@@ -43,6 +43,7 @@ Cloud::onLogin(function($user) {
 	//$todo = new Object("Todo");
     error_log("123是123是123");
     error_log($user->getUsername());
+    return 123;
     //error_log($todo);
     /*if ($user->get("blocked")) {
         // 用户无法登录
