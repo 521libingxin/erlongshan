@@ -197,7 +197,7 @@ $app->post('/register', function(Request $request, Response $response) {
 		return $res;
     }
 });
-$app->get('/register2', function(Request $request, Response $response) {
+$app->post('/register2', function(Request $request, Response $response) {
     $res = $response->withHeader("Access-Control-Allow-Origin","*");
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();

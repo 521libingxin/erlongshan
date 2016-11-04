@@ -17,7 +17,12 @@ Cloud::define("averageStars", function($params, $user) {
 });
 Cloud::afterUpdate("_User", function($article, $user) {
     // 输出日志到控制台
-    error_log("dfsdfs15153412sf");
+    error_log("afterUpdate_dfsdfs15153412sf");
+    return 0;
+});
+Cloud::beforeUpdate("_User", function($article, $user) {
+    // 输出日志到控制台
+    error_log("beforeUpdate_dfsdfs15153412sf");
     return 0;
 });
 // /1.1/functions/sieveOfPrimes
