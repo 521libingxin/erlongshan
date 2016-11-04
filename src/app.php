@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../src/cloud.php';
+require __DIR__ . '/cloud.php';
 
 /*
  * A simple Slim based sample application
