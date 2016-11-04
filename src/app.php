@@ -180,7 +180,7 @@ $app->post('/singinajax', function(Request $request, Response $response) {
 		$user->signUp();
 		$res->getBody()->write(json_encode(array(
 	        "login" => $user->getParsedBody(),
-	        "ip" => $ip
+	        "ip" => request.meta.remoteAddress
 	    )));
 		return $res;
     } catch (Exception $ex) {
