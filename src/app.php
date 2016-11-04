@@ -202,8 +202,8 @@ $app->get('/register2', function(Request $request, Response $response) {
     $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
 	$data = $request->getParsedBody();
 	//User::become('woxb1ovxamub0cqua2jvv61dw');
-	User::become('woxb1ovxamub0cqua2jvv61dw');
-	$currentUser = User::getCurrentUser();
+	//User::become('woxb1ovxamub0cqua2jvv61dw');
+	$currentUser = User::become($data["sessT"]);
 	$objid = $currentUser -> getObjectId();
 	$currentUser->set("sex","男");
 	try {
