@@ -39,11 +39,18 @@ Cloud::define("sieveOfPrimes", function($params, $user) {
     }
     return $numbers;
 });
+Cloud::afterSave("_User", function($userObj, $currentUser) {
+    $userObj->set("from", "LeanCloud");
+    try {
+        $userObj->save();
+    } catch (CloudException $ex) {
+        throw new FunctionError("保存 User 对象失败: " . $ex->getMessage());
+    }
+});
 Cloud::onLogin(function($user) {
 	//$todo = new Object("Todo");
-    error_log("123是123是123");
-    error_log($user->getUsername());
-    return 123;
+    $user ->set("sex","女的");
+    $currentUser->save();
     //error_log($todo);
     /*if ($user->get("blocked")) {
         // 用户无法登录
