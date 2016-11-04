@@ -39,6 +39,18 @@ Cloud::define("sieveOfPrimes", function($params, $user) {
     }
     return $numbers;
 });
+Cloud::onLogin(function($user) {
+	//$todo = new Object("Todo");
+    error_log("123是123是123");
+    error_log($user->getUsername());
+    return 123;
+    //error_log($todo);
+    /*if ($user->get("blocked")) {
+        // 用户无法登录
+        throw new FunctionError("Forbidden");
+    }*/
+    // 如果正常执行，则用户将正常登录
+});
 /*Cloud::onLogin(function($user) {
 	
     $todo = new Object("Todo");

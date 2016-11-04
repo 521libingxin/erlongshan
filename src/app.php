@@ -165,8 +165,7 @@ $app->post('/singinajax', function(Request $request, Response $response) {
 	try {
 		$user->signUp();
 		$res->getBody()->write(json_encode(array(
-	        "login" => $user->getParsedBody(),
-	        "ip" => request.headers['x-real-ip']
+	        "login" => $user->getParsedBody()
 	    )));
 		return $res;
     } catch (Exception $ex) {
