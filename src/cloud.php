@@ -15,14 +15,14 @@ Cloud::define("averageStars", function($params, $user) {
     error_log("123123");
     return 0;
 });
-Cloud::afterUpdate("_User", function($article, $user) {
+/*Cloud::afterUpdate("_User", function($article, $user) {
     // 输出日志到控制台
     error_log("afterUpdate_dfsdfs15153412sf");
 });
 Cloud::beforeUpdate("_User", function($article, $user) {
     // 输出日志到控制台
     error_log("beforeUpdate_dfsdfs15153412sf");
-});
+});*/
 // /1.1/functions/sieveOfPrimes
 Cloud::define("sieveOfPrimes", function($params, $user) {
     $n = isset($params["n"]) ? $params["n"] : 1000;
