@@ -1,0 +1,9 @@
+<div class="outer" [style.background-image]="bgImage" (click)="switchToPreview($event)" style="height:calc( 98% - 160px ); margin-top:1%; background-size:contain;background-repeat:no-repeat; background-position: center center;">
+	<div class="middle">
+		<div id="innerHome" [style.width]="innerHomeWidth|pixel">
+			<span *ngFor="let btn of LargeButtons; let i=index" id="i">
+				<!--TODO the following tag could have a routerLink="/main" attr.  -->
+			</span>
+		</div>
+	</div>
+</div>

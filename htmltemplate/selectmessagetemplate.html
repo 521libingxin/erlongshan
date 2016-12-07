@@ -1,0 +1,19 @@
+<div class="outer">
+	<div class="middle">
+		<div class="innerList">
+			<table class="messageList">
+				<tr *ngFor="let fileName of fileNames; let i=index" id="i" style="border-bottom: 1px solid #888;">
+					<td>
+						<span style="color:black;display: inline-block;">{{fileName}}</span>
+					</td>
+					<td>
+						<span style="display: inline-block;float:right;" *ngFor="let btn of LargeButtons; let j=index" id="j">
+				<!--TODO the following tag could have a routerLink="/main" attr.  -->
+			</span>
+					</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</div>

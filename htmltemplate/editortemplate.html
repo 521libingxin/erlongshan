@@ -1,0 +1,44 @@
+<div class="outer" style="position:relative;top:-80px;left:0;z-index:1000;background:#fff;">
+	<div class="web-header-editor" id="header-area">
+		<div style="display: block;">
+			<div class="btn-group" style="display: inline-block; top: 15px;">
+				<div class="btn btn-editor">Standart</div>
+				<div class="btn btn-editor">Segment</div>
+				<div class="btn btn-editor">Preview</div>
+
+			</div>
+			<div style="width:300px;float: right; margin:0; padding-top:15px;">
+
+				<div class="btn btn-editor" style="float: right;" (click)="sendToPrint()"><img style="max-height:100%; max-width:100%;" src="img/Icon_Send_to_printer_Available.png" /></div>
+
+				<div class="btn btn-editor-light" style="float: right;"><img style="max-height:100%; max-width:100%;" src="img/save_as_unselected.png" /></div>
+				<div class="btn btn-editor-light" style="float: right;"><img style="max-height:100%; max-width:100%;" src="img/save_unselected.png" /></div>
+
+			</div>
+		</div>
+	</div>
+	<div class="wrapper" style="display:inline-block;" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp($event)">
+		<div *ngIf="selectedElement" id="slide">
+			<div style="text-align:center;">ID:{{selectedElement.name}}</div>
+			<div style="text-align:center;">X:{{selectedElement.xPosition|pixel}}</div>
+			<div style="text-align:center;">Y:{{selectedElement.yPosition|pixel}}</div>
+			<input [(ngModel)]="inputText" type="text" id="TextContent" style="width: 120px; height:20px">
+			<button type="button" id="SetLiveContent" (click)="setStringContent('TextContent')" style="color: #000000">Change content</button>
+			<button type="button" id="AddText" (click)="addText('TextContent',false)" style="color: #000000">Add text</button>
+			<button type="button" id="AddText" (click)="addText('TextContent',true)" style="color: #000000">Add date</button>
+			<p>
+				<span>Select Font:</span>
+				<select [(ngModel)]="selectedFont" (change)="onFontChange()">
+     			<option *ngFor="let font of fontList | keys" [value]="font.key">{{font.value}}</option>
+				 
+ 			</select>
+		</div>
+		<div id="canvas" (mousedown)="onMouseDown($event)" (window:resize)="onResize($event)">
+			<img *ngFor="let element of topLevelElement.structuralChildren" [ngStyle]="{'top.px': element.yPosition*gridScale, 'left.px': element.xPosition*gridScale, 'height.px':element.height*gridScale, 'width.px':element.width*gridScale, outline:element.outline  }"
+				style="position:absolute;" [src]="element.src" [id]="element.name" (mousedown)="onMouseDown($event)" (dragstart)="dragDropDisablerDummy()"
+				(drop)="dragDropDisablerDummy()" />
+			<!--<img *ngIf="imageContent" src="data:image/png;base64,{{imageContent}}" id="image" style="top:0px; left:0px;"  (mousedown)="onMouseDown($event)" (dragstart)="dragDropDisablerDummy()" (drop)="dragDropDisablerDummy()"/>-->
+		</div>
+
+	</div>
+</div>

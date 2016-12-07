@@ -1,0 +1,41 @@
+<div id="main">
+	<template ngbModalContainer></template>
+	<head_box></head_box>
+	<div class="content">
+		<router-outlet></router-outlet>
+	</div>
+	<div class="qs_footer">
+		<div *ngIf="homeurl" class="qs_footer_box">
+			<div class="qs_footer_left">
+                <nav-icon-button [button]='home' >123</nav-icon-button>
+				<!--<nav-icon-button icon='../img/Icon_Home_Available.png' iconhover='../img/Icon_Home_Selected.png' styleclass='button_style_sma_dis' (click)="go('home')" ></nav-icon-button>-->
+			</div>
+			<ul class="qs_footer_mid">
+				<li *ngFor="let i of listButtons" class="qs_footer_li">
+                	<nav-icon-button [button]='i' (click)="go(i.destination)" ></nav-icon-button>
+				</li>
+			</ul>
+			<div class="qs_footer_right">
+				<template #content let-c="close" let-d="dismiss">
+					<div class="login_alert" >
+						<button class="btn_depth_style" style="margin-bottom:7px;">
+							Disconnect from printer{{homeurl}}
+						</button>
+						<button class="btn_depth_style" (click)="c('Close click')">
+							Lock screen
+						</button>
+					</div>
+				</template>
+                <nav-icon-button [button]='login' (click)="open(content)" ></nav-icon-button>
+				<!--<nav-icon-button icon='../img/loginout_icon_unselected.png' styleclass='button_style_sma' (click)="go('home')" ></nav-icon-button>-->
+			</div>
+		</div>
+		<div *ngIf="!homeurl" class="qs_footer_box">
+			<ul class="qs_footer_left">
+				<li *ngFor="let i of listButtons" class="qs_footer_li">
+                	<nav-icon-button [button]='i' (click)="go(i.destination)" ></nav-icon-button>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
