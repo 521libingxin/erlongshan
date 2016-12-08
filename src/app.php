@@ -41,9 +41,15 @@ $container["view"] = function($container) {
     return new \Slim\Views\PhpRenderer(__DIR__ . "/views/");
 };
 $app->get('/', function (Request $request, Response $response) {
-    return $response->withStatus(302)->withRedirect('/profile');
+    return $response->withStatus(302)->withRedirect('/index');
 });
 $app->get('/index', function (Request $request, Response $response) {
+    return $this->view->render($response, "index.phtml", array(
+        "currentTime" => new \DateTime(),
+        "ip" =>$request.headers['x-real-ip']
+    ));
+});
+/*$app->get('/index', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
     ));
@@ -179,7 +185,7 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     $response->getBody()->write("Hello, $name");
 
     return $response;
-});
+});*/
 
 $app->run();
 
