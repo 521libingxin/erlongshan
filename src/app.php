@@ -61,7 +61,7 @@ $app->get('/', function (Request $request, Response $response) {
 $app->get('/index', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
-        "ip" =>$_SERVER['HTTP_X_REAL_IP]
+        "ip" =>$_SERVER['HTTP_X_REAL_IP']
     ));
 });
 /*$app->get('/index', function (Request $request, Response $response) {
