@@ -61,9 +61,7 @@ $app->get('/', function (Request $request, Response $response) {
 $app->get('/index', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
-        "ip" =>json_encode(getenv("HTTP_CLIENT_IP")),
-        "ip2" =>json_encode(getenv("HTTP_X_FORWARDED_FOR")),
-        "ip3" =>json_encode(getenv("REMOTE_ADDR")),
+        "ip" =>$_SERVER['HTTP_X_REAL_IP]
     ));
 });
 /*$app->get('/index', function (Request $request, Response $response) {
