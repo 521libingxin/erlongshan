@@ -1,9 +1,0 @@
-<div class="outer" (click)="switchToHome($event)">
-	<div class="wrapper" (click)="switchToHome($event)" style="display:inline-block;">
-		<div id="canvas" (click)="switchToHome($event)" (window:resize)="onResize($event)">
-			<img *ngIf="imageContent" (click)="switchToHome($event)" [src]="imageContent" id="image" [style.height.px]="height*gridScale"
-				[style.width.px]="width*gridScale" style="top:0px; left:0px;" />
-		</div>
-
-	</div>
-</div>
