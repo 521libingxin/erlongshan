@@ -46,8 +46,8 @@ $app->get('/', function (Request $request, Response $response) {
 $app->get('/index', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
-        "ip" =>$request -> headers,
-        "ip2" =>$request -> headers
+        "ip" =>"123",
+        "ip2" =>"456"
     ));
 });
 /*$app->get('/index', function (Request $request, Response $response) {
