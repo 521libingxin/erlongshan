@@ -40,13 +40,28 @@ $container = $app->getContainer();
 $container["view"] = function($container) {
     return new \Slim\Views\PhpRenderer(__DIR__ . "/views/");
 };
+function getIP() 
+{ 
+global $ip; 
+
+if (getenv("HTTP_CLIENT_IP")) 
+$ip = getenv("HTTP_CLIENT_IP"); 
+else if(getenv("HTTP_X_FORWARDED_FOR")) 
+$ip = getenv("HTTP_X_FORWARDED_FOR"); 
+else if(getenv("REMOTE_ADDR")) 
+$ip = getenv("REMOTE_ADDR"); 
+else 
+$ip = "Unknow"; 
+
+return $ip; 
+} 
 $app->get('/', function (Request $request, Response $response) {
     return $response->withStatus(302)->withRedirect('/index');
 });
 $app->get('/index', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
-        "ip" =>"123",
+        "ip" =>getIP(),
         "ip2" =>"456"
     ));
 });
