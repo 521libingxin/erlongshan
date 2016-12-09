@@ -34,18 +34,28 @@
 		</div>
   	<script>
   		$("#login_box").on("click",".btnclick",function(){
-  			$(this).removeClass("btnclick");
-  			$(this).addClass("btnclick_wait");
-  			$(".loadinglogin").addClass("show");
+  			var t_this = $(this);
+  			postwait(t_this);
   			$.ajax({
-  				type:"get",
+  				type:"post",
   				url:"https://zhenxiangqin.leanapp.cn/login",
   				data:{uname:$("#unameid").val(),pwd:$("#pwdid").val()},
   				success:function(back){
+  					postback(t_this);
   					console.log(back);
   				}
   			});
   		});
+  		function postwait(t_this){
+  			t_this.removeClass("btnclick");
+  			t_this.addClass("btnclick_wait");
+  			$(".loadinglogin").addClass("show");
+  		}
+  		function postback(t_this){
+				$(".loadinglogin").removeClass("show");
+  			t_this.removeClass("btnclick_wait");
+  			t_this.addClass("btnclick");
+  		}
   	</script>
   </body>
 </html>

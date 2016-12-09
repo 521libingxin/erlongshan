@@ -73,7 +73,8 @@ $app->get('/profile', function(Request $request, Response $response) {
 		return $this->view->render($response, "bghome.html", array());
     } else {
         // 没有登录，跳转到登录页面。
-        return $response->withRedirect('/login');
+		return $this->view->render($response, "bghome.html", array());
+        //return $response->withRedirect('/login');
     }
 });
 $app->post("/login", function(Request $request, Response $response) {
