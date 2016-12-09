@@ -152,6 +152,7 @@ input{
 	background:url(../img/msg.png) no-repeat 0 0 / 100% 100%;
 }
 .body_right{
+	min-height: 400px;
 	position:absolute;
 	left:131px;
 	background:url(../img/right_bg.png) repeat 0 0;
