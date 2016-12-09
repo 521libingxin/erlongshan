@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+		<meta charset="UTF-8">
+    <title>登录</title>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://zhenxiangqin.leanapp.cn/stylesheets/style.css">
+    <!--<link rel="stylesheet" href="../../public/stylesheets/style.css" />-->
+  </head>
+  <body class="login_bg">
+  	<div id="login_box" class="login_box">
+  		<div class="login_top">Welcome</div>
+			<div class="btn">
+				<div class="input_text">
+					<input type="text" class="input_text_in" placeholder="用户名/电话/邮箱" />
+				</div>
+			</div>
+			<div class="btn">
+				<div class="input_text">
+					<input type="password" class="input_text_in" placeholder="密码" />
+				</div>
+			</div>
+			
+			<?= $error ?>
+			<div class="btnclick">立即登录</div>
+			<div class="loadinglogin">
+				<object data="https://zhenxiangqin.leanapp.cn/img/spin.svg" width="100" height="100" type="image/svg+xml"></object>
+				<!--<object data="https://zhenxiangqin.leanapp.cn/img/spin.svg" width="100" height="100" type="image/svg+xml"></object>-->
+			</div>
+		</div>
+  	<script>
+  		$("#login_box").on("click",".btnclick",function(){
+  			$(this).removeClass("btnclick");
+  			$(this).addClass("btnclick_wait");
+  			$(".loadinglogin").addClass("show");
+  		});
+  	</script>
+  </body>
+</html>
