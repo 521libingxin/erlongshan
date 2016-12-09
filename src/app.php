@@ -59,9 +59,14 @@ $app->get('/', function (Request $request, Response $response) {
     return $response->withStatus(302)->withRedirect('/index');
 });
 $app->get('/index', function (Request $request, Response $response) {
-    return $this->view->render($response, "index.phtml", array(
+    return $this->view->render($response, "login.html", array(
         "currentTime" => new \DateTime(),
         "ip" =>$_SERVER['HTTP_X_REAL_IP']
+    ));
+});
+$app->get('/bghome', function (Request $request, Response $response) {
+    return $this->view->render($response, "bghome.html", array(
+        "currentTime" => new \DateTime()
     ));
 });
 /*$app->get('/index', function (Request $request, Response $response) {
