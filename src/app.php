@@ -58,16 +58,44 @@ return $ip;
 $app->get('/', function (Request $request, Response $response) {
     return $response->withStatus(302)->withRedirect('/index');
 });
-$app->get('/index', function (Request $request, Response $response) {
-    return $this->view->render($response, "login.html", array(
-        "currentTime" => new \DateTime(),
-        "ip" =>$_SERVER['HTTP_X_REAL_IP']
-    ));
+$app->get('/login[/{params:.*}]', function (Request $request, Response $response) {
+    $user = User::getCurrentUser();
+	if ($user) {
+        return $response->withRedirect('/profile');
+    }else {
+    	$params = explode('/', $request->getAttribute('params'));
+    	$parval = "";
+    	if($params[0] == "error"){
+    		$parval = "用户名或密码错误！";
+    	}
+	    return $this->view->render($response, "login.phtml", array(
+	        "error" => $parval,
+	    ));
+    }
 });
-$app->get('/bghome', function (Request $request, Response $response) {
-    return $this->view->render($response, "bghome.html", array(
-        "currentTime" => new \DateTime()
-    ));
+$app->get('/profile', function(Request $request, Response $response) {
+    // 判断用户是否已经登录
+    $user = User::getCurrentUser();
+    if ($user) {
+		return $this->view->render($response, "bghome.html", array(
+	        "currentTime" => new \DateTime(),
+	        "ip" =>$_SERVER['HTTP_X_REAL_IP']
+	    ));
+    } else {
+        // 没有登录，跳转到登录页面。
+        return $response->withRedirect('/login');
+    }
+});
+$app->post("/login", function(Request $request, Response $response) {
+    $data = $request->getParsedBody();
+    try {
+        User::logIn($data["uname"], $data["pwd"]);
+        // 跳转到个人资料页面
+        return $response->withStatus(302)->withRedirect('/profile');
+    } catch (Exception $ex) {
+        //登录失败，跳转到登录页面
+        return $response->withStatus(302)->withRedirect('/login/error');
+    }
 });
 /*$app->get('/index', function (Request $request, Response $response) {
     return $this->view->render($response, "index.phtml", array(
