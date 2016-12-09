@@ -56,31 +56,21 @@ $ip = "Unknow";
 return $ip; 
 } 
 $app->get('/', function (Request $request, Response $response) {
-    return $response->withStatus(302)->withRedirect('/index');
+    return $response->withStatus(302)->withRedirect('/profile');
 });
-$app->get('/login[/{params:.*}]', function (Request $request, Response $response) {
+$app->get('/login', function (Request $request, Response $response) {
     $user = User::getCurrentUser();
 	if ($user) {
         return $response->withRedirect('/profile');
-    }else {
-    	$params = explode('/', $request->getAttribute('params'));
-    	$parval = "";
-    	if($params[0] == "error"){
-    		$parval = "用户名或密码错误！";
-    	}
-	    return $this->view->render($response, "login.phtml", array(
-	        "error" => $parval,
-	    ));
+   }else {
+	    return $this->view->render($response, "login.phtml", array());
     }
 });
 $app->get('/profile', function(Request $request, Response $response) {
     // 判断用户是否已经登录
     $user = User::getCurrentUser();
     if ($user) {
-		return $this->view->render($response, "bghome.html", array(
-	        "currentTime" => new \DateTime(),
-	        "ip" =>$_SERVER['HTTP_X_REAL_IP']
-	    ));
+		return $this->view->render($response, "bghome.html", array());
     } else {
         // 没有登录，跳转到登录页面。
         return $response->withRedirect('/login');
@@ -88,13 +78,23 @@ $app->get('/profile', function(Request $request, Response $response) {
 });
 $app->post("/login", function(Request $request, Response $response) {
     $data = $request->getParsedBody();
+    $res = $response->withHeader("Access-Control-Allow-Origin","*");
+    $res = $res->withHeader("Content-Type","application/json;charset=utf-8");
+    
     try {
-        User::logIn($data["uname"], $data["pwd"]);
+        $user = User::logIn($data["uname"], $data["pwd"]);
         // 跳转到个人资料页面
-        return $response->withStatus(302)->withRedirect('/profile');
+        $roleid = $user->get("role");
+        $res->getBody()->write(json_encode(array(
+	        "usertype" => $roleid
+	    )));
+	    return $res;
     } catch (Exception $ex) {
         //登录失败，跳转到登录页面
-        return $response->withStatus(302)->withRedirect('/login/error');
+        $res->getBody()->write(json_encode(array(
+	        "usertype" => "0"
+	    )));
+	    return $res;
     }
 });
 /*$app->get('/index', function (Request $request, Response $response) {

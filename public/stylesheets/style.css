@@ -36,6 +36,13 @@ input{
 	text-align: center;
 	margin-bottom:80px;
 }
+.error_box{
+	position:absolute;
+	top:80px;
+	left:0;
+	right:0;
+	text-align: center;
+}
 .btn{
 	height:40px;
 	border-radius: 20px;
