@@ -59,7 +59,7 @@ $app->get('/', function (Request $request, Response $response) {
     return $response->withStatus(302)->withRedirect('/index');
 });
 $app->get('/index', function (Request $request, Response $response) {
-    return $this->view->render($response, "login.html", array(
+    return $this->view->render($response, "index.phtml", array(
         "currentTime" => new \DateTime(),
         "ip" =>$_SERVER['HTTP_X_REAL_IP']
     ));
