@@ -4,6 +4,7 @@
 		<meta charset="UTF-8">
 		<title>主页</title>
     	<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    	<script type="text/javascript" src="../../public/JS/kindeditor-min.js" ></script>
     	<!--<link rel="stylesheet" href="https://zhenxiangqin.leanapp.cn/stylesheets/style.css">-->
     	<link rel="stylesheet" href="../../public/stylesheets/style.css" />
 	</head>
@@ -12,73 +13,40 @@
 			<div class="top_bg_box"></div>
 			<div class="list_icon"></div>
 			<div class="list_line"></div>
-			<div class="bg_list">
-				<span class="msg_icon"></span>
-				消息通知
+			<div id="left_div">
 			</div>
-			<div class="list_line"></div>
-			<div class="bg_list bg_hover">
-				<span class="msg_icon"></span>
-				会员管理
-			</div>
-			<div class="list_line"></div>
-			<div class="bg_list">
-				<span class="msg_icon"></span>
-				员工管理
-			</div>
-			<div class="list_line"></div>
-			<div class="bg_list">
-				<span class="msg_icon"></span>
-				权限设置
-			</div>
-			<div class="list_line"></div>
 		</div>
 		<div class="body_right">
 			<div class="loading">
 				<object data="https://zhenxiangqin.leanapp.cn/img/spin.svg" width="200" height="200" type="image/svg+xml"></object>
 				<!--<object data="../img/spin.svg" width="200" height="200" type="image/svg+xml" ></object>-->
 			</div>
-			<div class="body_right_top">
-				<div class="body_r_t_list body_r_t_l_hover">
-					会员列表
-					<div class="b_r_l_line"></div>
-				</div>
-				<div class="body_r_t_list">
-					会员认证
-					<div class="b_r_l_line"></div>
-				</div>
-				<div class="body_r_t_list">
-					VIP设置
-					<div class="b_r_l_line"></div>
-				</div>
+			<div id="body_right_top" class="body_right_top">
 			</div>
-			<div class="body_right_body">
+			<div id="body_right_body_id" class="body_right_body">
 				
 			</div>
 		</div>
+		<div id="alertbox">
+		</div>
+    	<script type="text/javascript" src="../../public/JS/base.js"></script>
 		<script>
-			$(".bg_list").click(function(){
-				$(".bg_hover").removeClass("bg_hover");
-				$(this).addClass("bg_hover");
-				getdata();
+			var t_url = document.location.href.split("#")[1];
+			window.onhashchange = function(){
+				t_url = document.location.href.split("#")[1];
+				getright(url_json[t_url],t_url);
+			};
+			$(document).ready(function(){
+				getright(url_json[t_url],t_url);
 			});
-			$(".body_r_t_list").click(function(){
-				$(".body_r_t_l_hover").removeClass("body_r_t_l_hover");
-				$(this).addClass("body_r_t_l_hover");
-				getdata2();
+			$("body").on("click",".list_public",function(){
+				var t_url = $(this).attr("urls");
+				window.location.href = "#"+t_url;
 			});
-			getdata();
-			function getdata(){
-  				$(".loading").addClass("show");
-  				$(".body_right_body,.body_right_top").removeClass("show");
-				setTimeout(function(){
-  					$(".loading").removeClass("show");
-  					$(".body_right_body,.body_right_top").addClass("show");
-				},1000);
-			}
-			function getdata2(){
-				
-			}
+			$("body").on("click",".remove_alert",function(){
+				$(this).parent().prev().remove();
+				$(this).parent().remove();
+			});
 		</script>
 	</body>
 </html>

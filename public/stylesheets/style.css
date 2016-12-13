@@ -115,7 +115,7 @@ input{
 .list_icon{
 	height:150px;
 	width:130px;
-	background:url(../img/dielianhua150_z.png) no-repeat center center / 100px auto;
+	background:url(../img/dielianhua150_min.png) no-repeat center center / 100px auto;
 }
 .bg_list{
 	position:relative;
@@ -137,6 +137,42 @@ input{
 	left:10px;
 	top:20px;
 }
+.bg_hover .msg_icon{
+	background:url(../img/msg.png) no-repeat 0 0 / 100% 100%;
+}
+.user_icon{
+	width:20px;
+	height:20px;
+	background:url(../img/user_hover.png) no-repeat 0 0 / 100% 100%;
+	position:absolute;
+	left:10px;
+	top:20px;
+}
+.bg_hover .user_icon{
+	background:url(../img/user.png) no-repeat 0 0 / 100% 100%;
+}
+.root_icon{
+	width:20px;
+	height:20px;
+	background:url(../img/root_hover.png) no-repeat 0 0 / 100% 100%;
+	position:absolute;
+	left:10px;
+	top:20px;
+}
+.bg_hover .root_icon{
+	background:url(../img/root.png) no-repeat 0 0 / 100% 100%;
+}
+.admin_icon{
+	width:20px;
+	height:20px;
+	background:url(../img/admin_hover.png) no-repeat 0 0 / 100% 100%;
+	position:absolute;
+	left:10px;
+	top:20px;
+}
+.bg_hover .admin_icon{
+	background:url(../img/admin.png) no-repeat 0 0 / 100% 100%;
+}
 .list_line{
 	border-bottom:1px solid #080E17;
 	width:130px;
@@ -147,9 +183,6 @@ input{
 	position:relative;
 	z-index: 10;
 	background:url(../img/top_hover.png) no-repeat 0 0px / 100% 100%;
-}
-.bg_hover .msg_icon{
-	background:url(../img/msg.png) no-repeat 0 0 / 100% 100%;
 }
 .body_right{
 	min-height: 400px;
@@ -169,7 +202,7 @@ input{
 	right:0;
 	height:80px;
 	padding-left:100px;
-	display: none;
+	/*display: none;*/
 }
 .body_r_t_list{
 	cursor:pointer;
@@ -212,7 +245,8 @@ input{
 	bottom:0;
 	left:0;
 	right:0;
-	display: none;
+	padding:0 0 0 30px ;
+	/*display: none;*/
 }
 body .show{
 	display:block;
@@ -227,4 +261,58 @@ body .show{
 	top:50%;
 	display: none;
 	z-index: 100;
+}
+
+
+.bg_alert_hover{
+	background:#666;
+	opacity: 0.5;
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	z-index: 200;
+}
+.bg_alert{
+	width:400px;
+	height:500px;
+	position:absolute;
+	z-index: 300;
+	top:50%;
+	left:50%;
+	margin-top:-250px;
+	margin-left:-200px;
+	background:#fff;
+	box-shadow: 0 0 5px #080E17;
+	border-radius: 10px;
+	padding:10px;
+}
+.bg_alert_show{
+	width:400px;
+	height:500px;
+	position:absolute;
+	z-index: 300;
+	top:50%;
+	left:50%;
+	margin-top:-250px;
+	margin-left:-200px;
+	background:#fff;
+	box-shadow: 0 0 5px #080E17;
+	border-radius: 10px;
+	padding:10px;
+}
+.remove_alert{
+	position:absolute;
+	right:0;
+	top:0;
+	cursor:pointer;
+}
+.sendmsg{
+	width:150px;
+	height:50px;
+	position:absolute;
+	bottom:30px;
+	left:50%;
+	margin-left:-75px;
 }
