@@ -1,21 +1,28 @@
-# Slim Getting Started
+# LeanEngine Node.js Todo Demo
 
-一个基于 [Slim 框架](http://slimframework.com/) 的 PHP 应用,可以
-运行在 LeanEngine PHP 运行时环境。
+该项目是 [LeanCloud](https://leancloud.cn/) 的 [LeanEngine](https://leancloud.cn/docs/leanengine_overview.html) 示例项目，使用 Node.js 和 Express 实现。
 
-## 本地运行
+在 [这里](https://todo-demo.leanapp.cn/todos) 可以在线体验。
 
-首先确认本机已经安装 PHP 和 [composer](https://getcomposer.org/) 以及 [LeanCloud 命令行工具](https://www.leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令：
+## 功能
+
+* 用户会话管理:注册、登录、登出
+* 业务数据的 CRUD：Todo 的创建和删除、条件查询、状态修改等。
+* 简单的 ACL：不能修改别人创建 Todo 的状态。
+
+## 本地开发调试
+
+首先确认本机已经安装 [Node.js](http://nodejs.org/) 运行环境和 [LeanCloud 命令行工具](https://www.leancloud.cn/docs/leanengine_cli.html)，然后执行下列指令来检出项目：
 
 ```
-$ git clone git@github.com:leancloud/slim-getting-started.git
-$ cd slim-getting-started
+$ git clone https://github.com/leancloud/leanengine-todo-demo.git
+$ cd leanengine-todo-demo
 ```
 
 安装依赖：
 
 ```
-composer install
+$ npm install
 ```
 
 关联应用：
@@ -24,7 +31,7 @@ composer install
 lean app add origin <appId>
 ```
 
-这里的 appId 填上你在 LeanCloud 上创建的某一应用的 appId 即可。origin 则有点像 Git 里的 remote 名称。
+这里的 appId 填上你在 LeanCloud 上创建的某一应用的 appId 即可。
 
 启动项目：
 
@@ -32,9 +39,7 @@ lean app add origin <appId>
 lean up
 ```
 
-应用即可启动运行：[localhost:3000](http://localhost:3000)
-
-同时开启的还有云函数的本地调试工具：[localhost:3001](http://localhost:3001)
+恭喜你，启动成功！使用 [http://localhost:3000/todos](http://localhost:3000/todos) 体验项目。
 
 ## 部署到 LeanEngine
 
@@ -47,11 +52,3 @@ lean deploy
 ```
 lean publish
 ```
-
-## 相关文档
-
-* [PHP 网站托管开发指南](https://leancloud.cn/docs/leanengine_webhosting_guide-php.html)
-* [PHP 云函数开发指南](https://leancloud.cn/docs/leanengine_cloudfunction_guide-php.html)
-* [PHP 数据存储开发指南](https://leancloud.cn/docs/leanstorage_guide-php.html)
-* [PHP SDK API 文档](https://leancloud.cn/api-docs/php/)
-

@@ -1,1 +1,5 @@
+*~
+.*.swp
+node_modules/
+start.sh
 .avoscloud/
