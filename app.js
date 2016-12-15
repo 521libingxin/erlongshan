@@ -1,7 +1,7 @@
 var express = require('express');
-var path = require('path');
+//var path = require('path');
 var bodyParser = require('body-parser');
-var methodOverride = require('method-override')
+var methodOverride = require('method-override');
 var AV = require('leanengine');
 
 var users = require('./routes/users');
@@ -10,7 +10,7 @@ var todos = require('./routes/todos');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use('/static', express.static('public'));
