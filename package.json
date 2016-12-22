@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "QuickStart package.json from the documentation, supplemented with testing support",
   "engines": {
-        "node": "4.x"
+        "node": "4.4.3"
   },
   "scripts": {
     "start": "npm run lite",
