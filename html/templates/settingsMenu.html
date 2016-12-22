@@ -1,0 +1,13 @@
+<div style="padding: 50px 0 0px 25px;" id="settingMenu">
+	<div style="float: left;">
+		<span ng-repeat="i in tabSettings" id="settingMenu-index-tabButton-bar" style="display:inherit">
+			<large-settings-menu-icon-button icon='{{i.icon}}' caption='{{i.name}}' destination='{{i.destination}}'/>
+		</span>
+	</div>
+	<div class="vertical-line"></div> 
+	<div style="margin-left: 150px">
+		<span ng-repeat="i in settings" class="qs-index-button-bar" id="settingMenu-index-button-bar">
+			<nav-icon-button icon='{{i.icon}}' caption='{{i.name}}' destination='{{i.destination}}'/>
+		</span>
+	</div>
+</div>

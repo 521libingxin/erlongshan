@@ -1,0 +1,111 @@
+<link type="text/css" href='../css/style.css' rel='stylesheet'/>
+<div id="status_alert">
+	<div id="alert_box" style="display:none"> 
+		<ul id = "alertContent" >
+			<li style="width:770px; height:49px; margin-left:20px;  margin-top:5px; text-align:center; color:#000000;border-radius: 5px; " id="sdf" ng-repeat="item in alertsList">
+				<div style="width:702px; height:50px; float:left; border: 1px solid gray; border-radius: 5px;">
+					<div style="width:49px; height:49px; float:left; background-color:{{alertIconColor[item.AlertLevel]}}; border-radius: 5px;">
+						<img style="width:7px; height:23px; margin-top:13px; " src="../img/Icon_Alert_!.png"> </img>
+					</div>
+					<div style="width:602px; height:49px; float:left;">{{item.AlertShortDesc}}</div>
+					<div id="lookup_detail_id" class="detail" ng-click="showAlert(item)">
+						<img style="width:30px; height:8px; margin-top:20px; " src="../img/Icon_More_detail_Pressed.png"> </img>
+					</div>
+				</div>
+				<div id="clear_alert_id" class="acknowledge" ng-disabled="item.AlertUserClearable==='false'" ng-click="clearAlert(item)">
+					<img style="width:29px; height:22px; margin-top:13px; " src="../img/Icon_Complete_Available.png"> </img>
+				</div>
+			</li>	
+		</ul>
+		<div  id="btn_clear" ng-click="clearbtn()">
+			<img style="width:51px; height:22px; margin-top:13px; margin-left:13px; float:left;" src="../img/Icon_Complete_all_Available.png"> </img>
+			<div style="font-size:15px; color:#FFFFFF; float:left; margin-left:5px; margin-top:13px;" >Clear all</div>
+		</div>
+		<div style="width:790px; height:2px;  background-color: {{lineColor}}; left: 5px; right 5px; bottom: 0px; position:absolute; "> </div>
+	</div> 
+    <div id="status_box" class="qs_alert" >
+        <div id="startbtn" ng-click="startStopClicked()" ng-if="currentUser !== 'Logout' && showPlayButton">
+            <span>START</span>
+        </div>
+
+        <div id="qs_alert_status" ng-click="statusDrop()">
+            <div style="width: 233px; height: 40px; ">
+            	<div  id="alert_status_id">STATUS</div>
+            	<img  id="alert_count_background_id" ng-if="alert_count!==0" src="../img/Icon_Alert_!_Number.png"></img>
+            	<div  id="alert_count_id" ng-if="alert_count!==0" >{{alert_count}}</div>
+            </div>
+            <div id="line_1" class="line_bottom"></div>
+            <div id="alert_status_title" >{{alert_title}}</div>
+            <div id="line_2" class="line_bottom"></div>
+            <img id="updown_arrow" ng-if="alert_count!==0" src="../img/Icon_Alert_Caroussel_Available.png"></img>
+        </div>
+
+        <div id="stopbtn" ng-click="startStopClicked()" ng-if="currentUser !== 'Logout' && showPlayButton">
+           <span>STOP</span>
+        </div>
+    </div>
+</div> 
+	
+<div id="drop_down_header" > 
+ 		<input type="button" id="btn_prev" ng-click="uppage()"    > 
+ 		<input type="button" id="btn_next" ng-click="downpage()"    > 
+</div>  
+
+
+<div id="drop_down_body" class='swipe' > 
+	<ul id='flash'>
+		<li style='display:block'>
+			<div id="first">
+				<first-Page></first-Page>
+				<div id="headerfootinner1"   ng-click="pageDrop()" >
+					<div id="footinnericon1">  </div>
+					<div id="footinnericon2"> </div>
+					<div id="footinnericon3">  </div>
+					<div id="footinnericon4"></div>
+					<div id="footinnericonright1">  </div>
+					<div id="footinnericonright2"> </div>
+					<div id="footinnericonright3">  </div>
+					<div id="footinnericonright4"></div>					
+					<span > Connections and consumables </span>	
+				</div> 
+			</div>
+		</li>  
+
+		<li style='display:none;  width:800px;'>
+			<div id="second">
+				<status-Header></status-Header>
+				<div id="headerfootinner2"   ng-click="pageDrop()" > 
+					<div id="leftup"> <status-Leftup></status-Leftup></div>
+					<div id="leftdown"> <status-Leftdown></status-Leftdown></div>
+					<div id="rightup"> <status-Rightup></status-Rightup></div>
+					<div id="rightdown"><status-Rightdown></status-Rightdown> </div>
+					<span> Live status </span> 
+				</div> 
+			</div>
+		</li>
+
+		<li>
+			<!-- <div class="oee_box_container"> -->
+			<div class="third">
+				<!-- <object type="text/html" data="partials/oeepage.html" style="width:100%; height:100%;"> </object> -->
+				<oee-Content></oee-Content>
+				<div id="headerfootinner3"   ng-click="pageDrop()">
+					<div id="p3left"> 1100</div>
+					<div id="p3right1"> 200</div>
+					<div id="p3right2"> 2:5</div>
+					<span> Overall equipment efficiency </span>	
+				</div> 
+			</div>
+		</li>
+	</ul>
+</div>
+
+<div class="qs-header" id="home-header">
+	<div class="qs-header-content" id="home-header-content">   </div>
+</div>
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+<div class="web-header-overlay bottom" id="header_overlay"  style="float:left">
+	<div style="border-color:red">
+		<div class="web-inner web-down-arrows" id="arrowDown1" (click)="activateOverlay()">
+			<img src="/img/Icon_Alert_Caroussel_Available.png" />
+		</div>
+		<div class="web-inner status-ico" (click)="statusIconsClicked()">
+			<img src="{{printState}}" />
+		</div>
+		<div class="web-inner status-ico" (click)="statusIconsClicked()">
+			<img src="{{printState}}" />
+		</div>
+		<div class="web-inner status-ico" (click)="statusIconsClicked()">
+			<img src="{{usbState}}" />
+		</div>
+		<div class="web-inner status-ico" (click)="statusIconsClicked()">
+			<img src="{{keyState}}" />
+		</div>
+	</div>
+	<div class="jkl">
+		<div class="web-inner status-ico" (click)="statusIconsClicked()" style="margin-right: 40%;">
+			<img src="{{printState}}" />
+		</div>
+		<div class="web-inner status-ico" (click)="statusIconsClicked()">
+			<img src="{{printState}}" />
+		</div>
+		<div class="web-inner status-ico" (click)="statusIconsClicked()">
+			<img src="{{printState}}" />
+		</div>
+		<div class="web-inner status-ico" (click)="statusIconsClicked()">
+			<img src="{{printState}}" />
+		</div>
+		<div class="web-inner web-down-arrows" id="arrowDown2" (click)="activateOverlay()">
+			<img src="/img/Icon_Alert_Caroussel_Available.png" />
+		</div>
+	</div>
+	<img src="/img/hummingbird.gif" style="height:60%; width:40%;margin-left: 30%;margin-top: 5%;transform: rotate(180deg);"
+		ng-show="overlay === true" />
+</div>
