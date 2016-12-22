@@ -34,9 +34,8 @@
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "5.0.1",
-    "zone.js": "^0.7.4"
-  },
-  "devDependencies": {
+    "zone.js": "^0.7.4",
+	
     "concurrently": "^3.1.0",
     "lite-server": "^2.2.2",
     "typescript": "~2.0.10",
@@ -56,6 +55,8 @@
 
     "@types/node": "^6.0.46",
     "@types/jasmine": "^2.5.36"
+  },
+  "devDependencies": {
   },
   "repository": {}
 }
