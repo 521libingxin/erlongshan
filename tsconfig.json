@@ -6,8 +6,9 @@
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": [ "es2015", "dom" ],
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "removeComments": true,
+    "noImplicitAny": false,
+    "rootDir": "./app",
+    "outDir": "./js"
   }
 }

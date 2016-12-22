@@ -1,0 +1,19 @@
+<div class="outer">
+	<div class="middle">
+		<div id="inner" style="margin-left: auto; margin-right: auto; width:300px;">
+			<table class="messageList">
+				<tr>
+					<td>
+						<span style="color:black;display: inline-block;">Bleed Valve (boolean):</span>
+					</td>
+					<td>
+						<div style="text-align:center;vertical-align:middle;line-height:75px;color:white;width:175px;height:75px;border: black 1px solid;display: inline-block;float: right;border-radius: 5px;"
+							[ngClass]="{red: !setting, green:setting}" (click)="onSettingToggle()">
+							{{setting}}
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
