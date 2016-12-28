@@ -82,9 +82,7 @@ export var menus_one: any = {
         'consumables':{caption:'Consumables',destination: 'settingsMenu/consumables',parent:'printerstatus'},
         'counters':{caption:'Counters',destination: 'settingsMenu/counters',parent:'printerstatus'},
         'statistics':{caption:'Statistics',destination: 'settingsMenu/statistics',parent:'printerstatus'},
-        'inspectionp':{caption:'Inspection',destination: 'settingsMenu/inspectionp',parent:'printerstatus'},
-        
-    
+        'inspectionp':{caption:'Inspection',destination: 'settingsMenu/inspectionp',parent:'printerstatus'}
 }
 export var menus: any = {
     'settingsMenu':[

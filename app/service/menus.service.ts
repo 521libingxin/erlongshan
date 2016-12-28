@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class menuService {
-  objcopy(obj):Object{
+  objcopy(obj: any ): Object {
     return JSON.parse( JSON.stringify( obj ));
   }
-  getLeftlist(url): SettingsButton[] {
+  getLeftlist(url: any ): SettingsButton[] {
     let t_len = url.length;
     let t_url = url[t_len-1];
     let list = menus[menus_one[t_url].parent];
-    let newlist = [];
+    let newlist:SettingsButton[] = [];
     let basestyle = 'button_style_big';
     if(t_len > 2){
       basestyle = 'button_style_big_noicon';
@@ -27,18 +27,18 @@ export class menuService {
       }
       return newlist;
   }
-  getrightlist(url): SettingsButton[] {
+  getrightlist(url: any ): SettingsButton[] {
     let list = menus[url];
-    let newlist = [];
+    let newlist:SettingsButton[] = [];
     for(let i = 0;i < list.length;i++){
         newlist[i] = this.getbuttonbyname(list[i],'button_style_mid');
     }
     return newlist;
   }
-  getfootlist(list):SettingsButton[]{
+  getfootlist(list: any ):SettingsButton[]{
     let thome = menus_one['home'];
     thome['styleclass'] = 'button_style_sma';
-    let newlist = [thome];
+    let newlist:SettingsButton[] = [thome];
     for(let i = 1,len = list.length;i < len;i++){
       newlist.push(menus_one['betw']);
       let tmenus = this.objcopy(menus_one[menus_one[list[i]].parent]);
@@ -52,14 +52,14 @@ export class menuService {
     }
     return newlist;
   }
-  getbuttonbyname(name,style):SettingsButton{
+  getbuttonbyname(name: any , style: any ):SettingsButton{
     let tmenus = this.objcopy(menus_one[name]);
      tmenus['styleclass'] = style;
      return tmenus;
   }
   gethomelist():SettingsButton[]{
     let list = menus['home'];
-    let newlist = [];
+    let newlist:SettingsButton[] = [];
     for(let i = 0;i < list.length;i++){
         newlist[i] = this.getbuttonbyname(list[i],'button_style_depth');
     }
